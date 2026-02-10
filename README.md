@@ -13,8 +13,8 @@ Space Shooter Game
 
 | Name              | Student ID | Group |
 
-| Masuda Akter Dina | 240214     |   16  |
-| Jannatul Islam    | 240224     |   16  |
+| Sadia Rahman | 240232     |   17  |
+| Prionty Roy    | 240235     |   17  |
 
 
 ## Project Description
