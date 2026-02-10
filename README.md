@@ -43,5 +43,4 @@ The player controls a spaceship,avoids enemies and shoots obstacles to gain scor
 3. Run the executable file
 
 
-## License
-This project is licensed under the MIT License.
+
