@@ -38,7 +38,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "Space Shooter with Levels & Timer");
     InitAudioDevice(); 
 
-    // --- LOAD ASSETS ---
+    //  LOAD ASSETS 
     Texture2D playerTexture = LoadTexture("assets/player.png");
     Texture2D enemyTexture = LoadTexture("assets/enemy.png");
 
@@ -46,7 +46,7 @@ int main(void)
     Sound explosionSound = LoadSound("assets/explosion.wav");
     Sound levelupSound = LoadSound("assets/levelup.wav");
 
-    // --- Check if assets loaded (optional, but good for debugging) ---
+    //  Check if assets loaded
     if (playerTexture.id == 0) printf("ERROR: Failed to load player.png\n");
     if (enemyTexture.id == 0) printf("ERROR: Failed to load enemy.png\n");
     if (shootSound.frameCount == 0) printf("ERROR: Failed to load shoot.wav\n");
@@ -54,7 +54,7 @@ int main(void)
     if (levelupSound.frameCount == 0) printf("ERROR: Failed to load levelup.wav\n");
 
 
-    // --- Set scaling and dimensions for collision ---
+    //  Set scaling and dimensions for collision 
     float playerScale = 0.2f;
     float enemyScale = 0.125f;
     float playerWidth = (float)playerTexture.width * playerScale;
@@ -111,7 +111,7 @@ int main(void)
 
         if (!gameOver)
         {
-            // --- Level Up ---
+            //  Level Up 
             if (currentTime - lastLevelUpTime >= 60.0)
             {
                 level++;
@@ -125,14 +125,14 @@ int main(void)
                 levelMessageTime = currentTime + 2.0;
             }
 
-            // --- Player Movement (Fixed boundaries for texture size) ---
+            //  Player Movement (Fixed boundaries for texture size) 
             if (IsKeyDown(KEY_LEFT) && playerPos.x > 0) playerPos.x -= playerSpeed;
             if (IsKeyDown(KEY_RIGHT) && playerPos.x < screenWidth - playerWidth) playerPos.x += playerSpeed;
             if (IsKeyDown(KEY_UP) && playerPos.y > 0) playerPos.y -= playerSpeed;
             if (IsKeyDown(KEY_DOWN) && playerPos.y < screenHeight - playerHeight) playerPos.y += playerSpeed;
 
 
-            // --- Player Shooting (Fixed bullet position and added sound) ---
+            //  Player Shooting (Fixed bullet position and added sound) 
             if (IsKeyPressed(KEY_SPACE)) {
                 for (int i = 0; i < MAX_BULLETS; i++) {
                     if (!bullets[i].active) {
@@ -146,7 +146,7 @@ int main(void)
             }
 
 
-            // --- Move Bullets ---
+            //  Move Bullets 
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (bullets[i].active) {
                     bullets[i].pos.y -= 5;
@@ -155,7 +155,7 @@ int main(void)
             }
 
 
-            // --- Move Enemies ---
+            //  Move Enemies 
             for (int i = 0; i < MAX_ENEMIES; i++) {
                 if (enemies[i].active) {
                     if (GetRandomValue(0, 100) < 50) {
@@ -171,7 +171,7 @@ int main(void)
             }
 
 
-            // --- Bullet-Enemy Collision (Fixed for textures) ---
+            //  Bullet-Enemy Collision (Fixed for textures) 
             for (int i = 0; i < MAX_BULLETS; i++) {
                 if (bullets[i].active) {
                     Rectangle bulletRec = { bullets[i].pos.x - 2, bullets[i].pos.y - 2, 4, 4 }; 
@@ -203,7 +203,7 @@ int main(void)
 
 
 
-            // --- Enemy-Player Collision ---                 
+            //  Enemy-Player Collision                 
             float paddingPlayer = 8.0f;  
             float paddingEnemy = 10.25f;  
 
@@ -247,7 +247,7 @@ int main(void)
             }                                      
 
 
-            // --- Shield Collision ---
+            //  Shield Collision 
             if (shield.active) {
                 Rectangle shieldRec = { shield.pos.x - 10, shield.pos.y - 10, 20, 20 };
 
@@ -262,7 +262,7 @@ int main(void)
             if (shieldActive && currentTime > shieldExpireTime) shieldActive = false;
 
 
-            // --- Move Stars ---
+            //  Move Stars 
             for (int i = 0; i < MAX_STARS; i++) {
                 stars[i].pos.y += stars[i].speed;
                 if (stars[i].pos.y > screenHeight) {
@@ -285,29 +285,29 @@ int main(void)
 
         if (!gameOver)
         {
-            // --- Draw Player Texture ---
+            //  Draw Player Texture 
             DrawTextureEx(playerTexture, playerPos, 0.0f, playerScale, WHITE); 
 
-            // --- Draw Shield  ---
+            //  Draw Shield  
             if (shieldActive) DrawCircleLines(playerPos.x + playerWidth / 2, playerPos.y + playerHeight / 2, 25, SKYBLUE);
 
 
-            // --- Draw Bullets ---
+            //  Draw Bullets 
             for (int i = 0; i < MAX_BULLETS; i++)
                 if (bullets[i].active) DrawCircle(bullets[i].pos.x, bullets[i].pos.y, 5, YELLOW);
 
-            // --- Draw Enemy Textures ---
+            //  Draw Enemy Textures 
             for (int i = 0; i < MAX_ENEMIES; i++)
                 if (enemies[i].active) {
                     // DrawCircle(enemies[i].pos.x, enemies[i].pos.y, 10, RED); 
                     DrawTextureEx(enemyTexture, enemies[i].pos, 0.0f, enemyScale, WHITE); 
                 }
 
-            // --- Draw Shield Pickup ---
+            //  Draw Shield Pickup 
             if (shield.active) DrawCircle(shield.pos.x, shield.pos.y, 10, GREEN);
 
 
-            // --- Draw UI ---
+            //  Draw UI 
             DrawText(TextFormat("Score: %d", score), 10, 10, 20, WHITE);
             DrawText(TextFormat("High Score: %d", highScore), 10, 40, 20, GOLD);
             DrawText(TextFormat("Level: %d", level), 10, 70, 20, WHITE);
@@ -324,7 +324,7 @@ int main(void)
         }
         else
         {
-            // --- Game Over Screen ---
+            //  Game Over Screen 
             DrawText("GAME OVER!", screenWidth / 2 - 120, screenHeight / 2 - 40, 40, RED);
             DrawText(TextFormat("Final Score: %d", score), screenWidth / 2 - 90, screenHeight / 2 + 10, 20, WHITE);
             DrawText(TextFormat("High Score: %d", highScore), screenWidth / 2 - 90, screenHeight / 2 + 40, 20, GOLD);
